@@ -1,7 +1,36 @@
 import { Body, Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Req } from '@nestjs/common';
 import { version } from 'os';
-import { CreateCatDto } from './create-cat.dto';
+import { CreateCatDto } from './dto/create-cat.dto';
+import { CatsService } from './cats.service';
+import { Cat } from './interfaces/cats.interface';
 
+
+@Controller('cats')
+export class CatsController {
+    // creating and returning an instance of CatsService 
+    // or returning ther existing instance of singletone if it has already been requested elsewhere
+    constructor(private catsService: CatsService) {} 
+
+    @Post()
+    async create(@Body() createCatDto: CreateCatDto) {
+        this.catsService.create(createCatDto);
+    }
+    @Get()
+    async findAll(): Promise<Cat[]> {
+        return this.catsService.findAll()
+    }
+    
+}
+
+
+
+
+
+
+
+
+// Only controller
+/*
 @Controller('cats')
 export class CatsController {
     @Post()
@@ -15,8 +44,6 @@ export class CatsController {
     async createCat(@Body() CreateCatDto: CreateCatDto) {
         return 'This action adds a new cat';
     }
-    
-
     
     
     @Get("a*b")
@@ -44,7 +71,7 @@ export class CatsController {
         return `This action returns a #${params.id} cat`
     }
 
-
     
     
 }
+*/
