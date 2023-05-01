@@ -8,7 +8,7 @@ import { CatsModule } from './cats/cats.module';
 
 @Module({
   imports: [CatsModule],
-  controllers: [AppController, CatsController, AdminController],
-  providers: [AppService, CatsService],
+  controllers: [AppController, AdminController],
+  providers: [AppService],
 })
 export class AppModule {}
